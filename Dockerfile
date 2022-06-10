@@ -60,3 +60,5 @@ RUN Set-PSRepository PSGallery -InstallationPolicy Trusted -Verbose; Install-Mod
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
+
+# TODO: install yarn and run following command: yarn test --coverage --coverageDirectory='coverage'
