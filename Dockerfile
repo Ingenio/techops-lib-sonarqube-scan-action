@@ -57,8 +57,15 @@ RUN wget -O powershell.tar.gz https://github.com/PowerShell/PowerShell/releases/
 SHELL ["pwsh", "-Command"]
 RUN Set-PSRepository PSGallery -InstallationPolicy Trusted -Verbose; Install-Module PSScriptAnalyzer -Repository PSGallery -Scope AllUsers -Verbose
 
+# Install yarn
+RUN set -eux \
+    & apk add \
+        --no-cache \
+        nodejs \
+        yarn
+
+# TODO: run following command: yarn test --coverage --coverageDirectory='coverage'
+
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
-
-# TODO: install yarn and run following command: yarn test --coverage --coverageDirectory='coverage'
