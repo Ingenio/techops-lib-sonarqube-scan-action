@@ -25,6 +25,8 @@ fi
 
 unset JAVA_HOME
 
+yarn test --coverage --coverageDirectory='coverage'
+
 sonar-scanner -Dsonar.projectBaseDir=${INPUT_PROJECTBASEDIR} ${INPUT_ARGS}
 
 _tmp_file=$(ls "${INPUT_PROJECTBASEDIR}/" | head -1)
