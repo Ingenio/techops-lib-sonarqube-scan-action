@@ -27,6 +27,15 @@ RUN python3 -m pip install --upgrade pip
 # Install Ansible linter
 #RUN pip3 install ansible-lint
 
+# Upgrade Node.js to current LTS release
+RUN apk add --no-cache \
+    nodejs \
+    npm \
+
+# Install yarn
+RUN apk add --no-cache \
+    yarn \
+
 # Install PowerShell
 # https://docs.microsoft.com/en-us/powershell/scripting/install/install-alpine?view=powershell-7.2#installation-steps
 RUN apk add --no-cache \
@@ -56,13 +65,6 @@ RUN wget -O powershell.tar.gz https://github.com/PowerShell/PowerShell/releases/
 # Install PSScriptAnalyzer
 SHELL ["pwsh", "-Command"]
 RUN Set-PSRepository PSGallery -InstallationPolicy Trusted -Verbose; Install-Module PSScriptAnalyzer -Repository PSGallery -Scope AllUsers -Verbose
-
-# Install yarn
-RUN set -eux \
-    & apk add \
-        --no-cache \
-        nodejs \
-        yarn
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
