@@ -30,11 +30,11 @@ RUN python3 -m pip install --upgrade pip
 # Upgrade Node.js to current LTS release
 RUN apk add --no-cache \
     nodejs \
-    npm \
+    npm
 
 # Install yarn
 RUN apk add --no-cache \
-    yarn \
+    yarn
 
 # Install PowerShell
 # https://docs.microsoft.com/en-us/powershell/scripting/install/install-alpine?view=powershell-7.2#installation-steps
