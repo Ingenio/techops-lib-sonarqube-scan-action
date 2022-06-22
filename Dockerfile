@@ -28,7 +28,11 @@ RUN python3 -m pip install --upgrade pip
 #RUN pip3 install ansible-lint
 
 # Upgrade Node.js to current LTS release
-RUN apk add --no-cache \
+RUN apk -X https://dl-cdn.alpinelinux.org/alpine/edge/main -U -v add \
+    nodejs \
+    npm
+
+RUN apk -X https://dl-cdn.alpinelinux.org/alpine/edge/main upgrade \
     nodejs \
     npm
 
@@ -66,6 +70,11 @@ RUN wget -O powershell.tar.gz https://github.com/PowerShell/PowerShell/releases/
 SHELL ["pwsh", "-Command"]
 RUN Set-PSRepository PSGallery -InstallationPolicy Trusted -Verbose; Install-Module PSScriptAnalyzer -Repository PSGallery -Scope AllUsers -Verbose
 
+# Fix line endings for entrypoint.sh
+RUN apk add --no-cache \
+    dos2unix
 COPY entrypoint.sh /entrypoint.sh
+RUN dos2unix /entrypoint.sh
 RUN chmod +x /entrypoint.sh
+
 ENTRYPOINT ["/entrypoint.sh"]

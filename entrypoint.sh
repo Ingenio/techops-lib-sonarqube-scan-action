@@ -25,7 +25,11 @@ fi
 
 unset JAVA_HOME
 
-yarn test --coverage --coverageDirectory='coverage'
+if [[ -v ${RUN_YARN} ]]; then
+  yarn test --coverage --coverageDirectory='coverage'
+fi
+
+node -v
 
 sonar-scanner -Dsonar.projectBaseDir=${INPUT_PROJECTBASEDIR} ${INPUT_ARGS}
 
