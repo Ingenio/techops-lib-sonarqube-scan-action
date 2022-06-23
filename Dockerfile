@@ -13,8 +13,8 @@ LABEL version="1.1.0" \
 COPY wildcard_corp_ingenio_com.pem .
 RUN keytool -keystore /etc/ssl/certs/java/cacerts -storepass changeit -noprompt -trustcacerts -importcert -alias sonarqube -file wildcard_corp_ingenio_com.pem
 
-# Update repository sources
-RUN apk update
+# Update all installed packages
+RUN apk -U upgrade
 
 # Install Python 3
 RUN apk add --no-cache \
