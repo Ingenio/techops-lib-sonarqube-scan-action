@@ -9,40 +9,28 @@ LABEL version="1.1.0" \
 	com.github.actions.icon="check" \
 	com.github.actions.color="green"
 
-# Add Ingenio certificate to java keystore
-COPY wildcard_corp_ingenio_com.pem .
-RUN keytool -keystore /etc/ssl/certs/java/cacerts -storepass changeit -noprompt -trustcacerts -importcert -alias sonarqube -file wildcard_corp_ingenio_com.pem
-
-# Update all installed packages
-RUN apk -U upgrade
-
 # Install Python 3
-RUN apk add --no-cache \
+RUN apk add --update --no-cache  \
     build-base \
     python3 \
     py3-pip
-
 RUN python3 -m pip install --upgrade pip
 
-# Install Ansible linter
+# TODO: Install Ansible linter
 #RUN pip3 install ansible-lint
 
-# Upgrade Node.js to current LTS release
-RUN apk -X https://dl-cdn.alpinelinux.org/alpine/edge/main -U -v add \
-    nodejs \
-    npm
-
-RUN apk -X https://dl-cdn.alpinelinux.org/alpine/edge/main upgrade \
-    nodejs \
-    npm
+# Upgrade Node.js
+# HACK: Fix for "Error relocating /usr/bin/node: _ZSt28__throw_bad_array_new_lengthv: symbol not found" - https://github.com/nodejs/node/issues/41058#issuecomment-997348999
+RUN apk del gmp-dev libstdc++ && \
+    apk add --update --no-cache gmp-dev libstdc++ nodejs npm
 
 # Install yarn
-RUN apk add --no-cache \
+RUN apk add --update --no-cache \
     yarn
 
 # Install PowerShell
 # https://docs.microsoft.com/en-us/powershell/scripting/install/install-alpine?view=powershell-7.2#installation-steps
-RUN apk add --no-cache \
+RUN apk add --update --no-cache \
     ca-certificates \
     less \
     ncurses-terminfo-base \
@@ -57,7 +45,7 @@ RUN apk add --no-cache \
     icu-libs \
     curl
 
-RUN apk -X https://dl-cdn.alpinelinux.org/alpine/edge/main add --no-cache \
+RUN apk add --update --no-cache --repository https://dl-cdn.alpinelinux.org/alpine/edge/main \
     lttng-ust
 
 RUN wget -O powershell.tar.gz https://github.com/PowerShell/PowerShell/releases/download/v7.2.3/powershell-7.2.3-linux-alpine-x64.tar.gz; \
@@ -69,6 +57,10 @@ RUN wget -O powershell.tar.gz https://github.com/PowerShell/PowerShell/releases/
 # Install PSScriptAnalyzer
 SHELL ["pwsh", "-Command"]
 RUN Set-PSRepository PSGallery -InstallationPolicy Trusted -Verbose; Install-Module PSScriptAnalyzer -Repository PSGallery -Scope AllUsers -Verbose
+
+# Add Ingenio certificate to java keystore
+COPY wildcard_corp_ingenio_com.pem .
+RUN keytool -keystore /etc/ssl/certs/java/cacerts -storepass changeit -noprompt -trustcacerts -importcert -alias sonarqube -file wildcard_corp_ingenio_com.pem
 
 # Fix line endings for entrypoint.sh
 RUN apk add --no-cache \
