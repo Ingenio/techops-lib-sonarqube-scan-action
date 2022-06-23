@@ -26,6 +26,11 @@ RUN apk add --update --no-cache --repository https://dl-cdn.alpinelinux.org/alpi
     libstdc++ \
     nodejs \
     npm
+RUN apk upgrade --update --no-cache --repository https://dl-cdn.alpinelinux.org/alpine/edge/main \
+    gmp-dev \
+    libstdc++ \
+    nodejs \
+    npm
 
 # Install yarn
 RUN apk add --update --no-cache \
