@@ -25,7 +25,7 @@ fi
 
 unset JAVA_HOME
 
-if [[ -v ${RUN_YARN} ]]; then
+if [[ "${RUN_YARN}" == "true" ]]; then
   yarn test --coverage --coverageDirectory='coverage'
 fi
 
