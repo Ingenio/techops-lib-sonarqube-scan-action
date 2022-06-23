@@ -21,7 +21,11 @@ RUN python3 -m pip install --upgrade pip
 
 # Upgrade Node.js
 # HACK: Fix for "Error relocating /usr/bin/node: _ZSt28__throw_bad_array_new_lengthv: symbol not found" - https://github.com/nodejs/node/issues/41058#issuecomment-997348999
-RUN apk add --update --no-cache gmp-dev libstdc++ nodejs npm
+RUN apk add --update --no-cache --repository https://dl-cdn.alpinelinux.org/alpine/edge/main \
+    gmp-dev \
+    libstdc++ \
+    nodejs \
+    npm
 
 # Install yarn
 RUN apk add --update --no-cache \
