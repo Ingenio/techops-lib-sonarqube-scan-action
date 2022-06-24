@@ -1,6 +1,6 @@
 # HACK: Fix for "Error relocating /usr/bin/node: _ZSt28__throw_bad_array_new_lengthv: symbol not found" - https://github.com/nodejs/node/issues/41058#issuecomment-997348999
 FROM alpine:3.15 as libstdc-donor
-RUN apk add --no-cache --repository http://cdn-dl.alpinelinux.org/alpine/edge/main libstdc++
+#RUN apk add --update --no-cache --repository https://cdn-dl.alpinelinux.org/alpine/edge/main libstdc++
 
 FROM sonarsource/sonar-scanner-cli:4.7
 
