@@ -35,6 +35,10 @@ RUN apk upgrade --no-cache --repository https://dl-cdn.alpinelinux.org/alpine/ed
 COPY --from=libstdc-donor /usr/lib/libstdc++.so.6.0.29 /usr/lib/libstdc++.so.6.0.29
 RUN rm /usr/lib/libstdc++.so.6 && ln -s /usr/lib/libstdc++.so.6.0.29 /usr/lib/libstdc++.so.6
 
+# Install yarn
+RUN apk add --update --no-cache \
+    yarn
+
 # Install PowerShell
 # https://docs.microsoft.com/en-us/powershell/scripting/install/install-alpine?view=powershell-7.2#installation-steps
 RUN apk add --update --no-cache \

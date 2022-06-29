@@ -25,8 +25,7 @@ fi
 
 unset JAVA_HOME
 
-if [[ "${RUN_YARN}" == "true" ]]; then
-  apk add --update --no-cache yarn
+if [[ "${RUN_JEST}" == "true" ]]; then
   npm install -g jest-cli jest-sonar-reporter
   yarn add jest jest-environment-jsdom
   yarn test --coverage --coverageDirectory='coverage'
