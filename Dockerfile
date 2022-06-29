@@ -60,6 +60,7 @@ RUN wget -O powershell.tar.gz https://github.com/PowerShell/PowerShell/releases/
 # Install PSScriptAnalyzer
 SHELL ["pwsh", "-Command"]
 RUN Set-PSRepository PSGallery -InstallationPolicy Trusted -Verbose; Install-Module PSScriptAnalyzer -Repository PSGallery -Scope AllUsers -Verbose
+SHELL ["/bin/sh", "-c"]
 
 # Install yarn and dependencies
 RUN apk add --update --no-cache \
