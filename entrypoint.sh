@@ -26,6 +26,8 @@ fi
 unset JAVA_HOME
 
 if [[ "${RUN_YARN}" == "true" ]]; then
+  apk add --update --no-cache yarn
+  npm install -g jest-cli
   yarn add jest jest-environment-jsdom
   yarn test --coverage --coverageDirectory='coverage'
 fi
