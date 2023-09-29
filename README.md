@@ -28,11 +28,13 @@ The workflow YAML file will usually look something like this:
 
 ```yaml
 on:
-  # Trigger analysis when pushing in master or pull requests, and when creating
-  # a pull request. 
+  # Trigger analysis when pushing to your main branches, and when creating a pull request.
   push:
     branches:
+      - main
       - master
+      - develop
+      - 'releases/**'
   pull_request:
       types: [opened, synchronize, reopened]
 
@@ -41,7 +43,7 @@ jobs:
   sonarqube:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         # Disabling shallow clone is recommended for improving relevancy of reporting
         fetch-depth: 0
