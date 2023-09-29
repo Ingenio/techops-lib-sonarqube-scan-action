@@ -1,13 +1,13 @@
-FROM sonarsource/sonar-scanner-cli:4.7
+FROM sonarsource/sonar-scanner-cli:5.0.1
 
-LABEL version="1.1.0" \
-	repository="https://github.com/sonarsource/sonarqube-scan-action" \
-	homepage="https://github.com/sonarsource/sonarqube-scan-action" \
-	maintainer="SonarSource" \
-	com.github.actions.name="SonarQube Scan" \
-	com.github.actions.description="Scan your code with SonarQube to detect Bugs, Vulnerabilities and Code Smells in up to 27 programming languages!" \
-	com.github.actions.icon="check" \
-	com.github.actions.color="green"
+LABEL version="2.0.1" \
+      repository="https://github.com/sonarsource/sonarqube-scan-action" \
+      homepage="https://github.com/sonarsource/sonarqube-scan-action" \
+      maintainer="SonarSource" \
+      com.github.actions.name="SonarQube Scan" \
+      com.github.actions.description="Scan your code with SonarQube to detect Bugs, Vulnerabilities and Code Smells in up to 27 programming languages!" \
+      com.github.actions.icon="check" \
+      com.github.actions.color="green"
 
 # Install Python 3
 RUN apk add --update --no-cache  \
