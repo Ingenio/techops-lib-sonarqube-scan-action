@@ -61,9 +61,9 @@ RUN wget -O powershell.tar.gz https://github.com/PowerShell/PowerShell/releases/
 SHELL ["pwsh", "-Command"]
 RUN Set-PSRepository PSGallery -InstallationPolicy Trusted -Verbose; Install-Module PSScriptAnalyzer -Repository PSGallery -Scope AllUsers -Verbose
 
-# Add Ingenio certificate to java keystore  // No longer needed; now uses GitHub global secret SONAR_ROOT_CERT
-#COPY wildcard_corp_ingenio_com.pem .
-#RUN keytool -keystore /etc/ssl/certs/java/cacerts -storepass changeit -noprompt -trustcacerts -importcert -alias sonarqube -file wildcard_corp_ingenio_com.pem
+# Add Ingenio certificate to java keystore
+COPY wildcard_corp_ingenio_com.pem .
+RUN keytool -keystore /etc/ssl/certs/java/cacerts -storepass changeit -noprompt -trustcacerts -importcert -alias sonarqube -file wildcard_corp_ingenio_com.pem
 
 # Fix line endings for entrypoint.sh
 RUN apk add --no-cache \
