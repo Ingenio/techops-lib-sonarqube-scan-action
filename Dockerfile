@@ -62,8 +62,8 @@ SHELL ["pwsh", "-Command"]
 RUN Set-PSRepository PSGallery -InstallationPolicy Trusted -Verbose; Install-Module PSScriptAnalyzer -Repository PSGallery -Scope AllUsers -Verbose
 
 # Add Ingenio certificate to java keystore
-COPY wildcard_corp_ingenio_com.pem .
-RUN keytool -keystore /etc/ssl/certs/java/cacerts -storepass changeit -noprompt -trustcacerts -importcert -alias sonarqube -file wildcard_corp_ingenio_com.pem
+#COPY wildcard_corp_ingenio_com.pem .
+#RUN keytool -keystore /etc/ssl/certs/java/cacerts -storepass changeit -noprompt -trustcacerts -importcert -alias sonarqube -file wildcard_corp_ingenio_com.pem
 
 # Fix line endings for entrypoint.sh
 RUN apk add --no-cache \
