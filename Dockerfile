@@ -61,7 +61,7 @@ RUN wget -O powershell.tar.gz https://github.com/PowerShell/PowerShell/releases/
 SHELL ["pwsh", "-Command"]
 RUN Set-PSRepository PSGallery -InstallationPolicy Trusted -Verbose; Install-Module PSScriptAnalyzer -Repository PSGallery -Scope AllUsers -Verbose
 
-# Add Ingenio certificate to java keystore
+# Add Ingenio certificate to java keystore  // NO LONGER NEEDED; CONTAINER NOW USES GLOBAL GITHUB SECRET SONAR_ROOT_CERT
 #COPY wildcard_corp_ingenio_com.pem .
 #RUN keytool -keystore /etc/ssl/certs/java/cacerts -storepass changeit -noprompt -trustcacerts -importcert -alias sonarqube -file wildcard_corp_ingenio_com.pem
 
